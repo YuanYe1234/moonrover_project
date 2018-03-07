@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<robot>
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100</updateRate>
+      <rosDebugLevel>Debug</rosDebugLevel>
+      <odometrySource>1</odometrySource>
+      <leftJoint>base_to_left1</leftJoint>
+      <rightJoint>base_to_right1</rightJoint>
+      <leftRearJoint>base_to_left2</leftRearJoint>
+      <rightRearJoint>base_to_right2</rightRearJoint>
+      <wheelSeparation>0.24</wheelSeparation>
+      <wheelDiameter>${wheel_diameter}</wheelDiameter>
+      <wheelTorque>0.8</wheelTorque>
+      <wheelAcceleration>0.05</wheelAcceleration>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+      <publishWheelTF>true</publishWheelTF>
+      <legacyMode>true</legacyMode>
+      <publishWheelJointState>true</publishWheelJointState> 
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="base_link">
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+  </gazebo>
+  <gazebo reference="right_wheel1">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <gazebo reference="left_wheel1">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <gazebo reference="right_wheel2">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <gazebo reference="left_wheel2">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+
+</robot>

@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<robot name="rover1.0">
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.2 0.5 0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2 0.5 0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="4"/>
+      <inertia ixx="0.16666700" ixy="0.0" ixz="0.0" iyy="0.16666700" iyz="0.0" izz="0.16666700"/>
+    </inertial>
+  </link>
+
+  <link name="right_wheel1">
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find rover_description)/models/meshes/14-010-p006.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.1" length="0.04"/>
+      </geometry>
+    </collision> 
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.0013166667" ixy="0.0" ixz="0.0" iyy="0.0013166667" iyz="0.0" izz="0.0025"/>
+    </inertial>   
+  </link>
+
+  <joint name="base_to_right1" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel1"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0.12 0.15 0"/>
+  </joint>
+
+  <link name="left_wheel1">
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find rover_description)/models/meshes/14-010-p006.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.1" length="0.04"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.0013166667" ixy="0.0" ixz="0.0" iyy="0.0013166667" iyz="0.0" izz="0.0025"/>
+    </inertial>    
+  </link>
+
+  <joint name="base_to_left1" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel1"/>
+    <origin xyz="-0.12 0.15 0"/>
+  </joint>
+
+  <link name="right_wheel2">
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find rover_description)/models/meshes/14-010-p006.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.1" length="0.04"/>
+      </geometry>
+    </collision>   
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.0013166667" ixy="0.0" ixz="0.0" iyy="0.0013166667" iyz="0.0" izz="0.0025"/>
+    </inertial>     
+  </link>
+
+  <joint name="base_to_right2" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel2"/>
+    <origin xyz="0.12 -0.15 0"/>
+  </joint>
+
+  <link name="left_wheel2">
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find rover_description)/models/meshes/14-010-p006.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.1" length="0.04"/>
+      </geometry>
+    </collision> 
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.0013166667" ixy="0.0" ixz="0.0" iyy="0.0013166667" iyz="0.0" izz="0.0025"/>
+    </inertial>       
+  </link>
+
+  <joint name="base_to_left2" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel2"/>
+    <origin xyz="-0.12 -0.15 0"/>
+  </joint>
+
+</robot>
