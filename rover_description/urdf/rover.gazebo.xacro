@@ -18,7 +18,7 @@
       <rightRearJoint>base_to_right2</rightRearJoint>
       <wheelSeparation>2</wheelSeparation>
       <wheelDiameter>0.2</wheelDiameter>
-      <robotBaseFrame>base_link</robotBaseFrame>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
       <torque>20</torque>
       <covariance_x>0.0001</covariance_x>
       <covariance_y>0.0001</covariance_y>
