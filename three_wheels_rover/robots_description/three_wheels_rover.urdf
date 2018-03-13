@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<robot name="three_wheels_rover">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.330 0.339 0.227"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.330 0.339 0.227"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="tail_main">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.326 0.1264 0.0595"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.326 0.1264 0.0595"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="tail_short">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.10 0.08 0.02"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.10 0.08 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="tail_long">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.08 0.25"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.08 0.15"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_to_tail_main" type="fixed">
+    <parent link="base_link"/>
+    <child link="tail_main"/>
+    <origin xyz="0 0.2327 0.08375"/>
+  </joint>
+
+  <joint name="tail_main_to_short" type="revolute">
+    <parent link="tail_main"/>
+    <child link="tail_short"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0.0232 -0.0395"/>
+    <limit lower="-1.57" upper="1.57" effort="0" velocity="0"/>
+  </joint>
+
+  <joint name="tail_short_to_long" type="fixed">
+    <parent link="tail_short"/>
+    <child link="tail_long"/>
+    <origin xyz="0.06 0 -0.115"/>
+  </joint>
+
+  <link name="front_right_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5707 0"/>
+      <geometry>
+        <cylinder radius="0.14" length="0.144"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.14" length="0.144"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_to_right" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_right_wheel"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0.237 0 -0.100"/>
+  </joint>
+
+  <link name="front_left_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5707 0"/>
+      <geometry>
+        <cylinder radius="0.14" length="0.144"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.14" length="0.144"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_to_left" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_left_wheel"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="-0.237 0 -0.100"/>
+  </joint>
+
+  <link name="rear_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5707 0"/>
+      <geometry>
+        <cylinder radius="0.125" length="0.1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.125" length="0.1"/>
+      </geometry>
+    </collision>
+  </link> 
+
+  <joint name="tail_to_rear" type="continuous">
+    <parent link="tail_long"/>
+    <child link="rear_wheel"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="-0.06 0 -0.044249"/>
+  </joint>
+</robot>
