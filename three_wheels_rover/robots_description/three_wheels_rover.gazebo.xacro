@@ -13,7 +13,8 @@
       <alwaysOn>true</alwaysOn>
       <legacyMode>true</legacyMode>
       <updateRate>100</updateRate>
-      <leftJoint>base_to_left</leftJoint> <!-- intentionally reverted -->
+      <rosDebugLevel>na</rosDebugLevel>
+      <leftJoint>base_to_left</leftJoint> 
       <rightJoint>base_to_right</rightJoint>
       <wheelSeparation>0.474</wheelSeparation>
       <wheelDiameter>0.14</wheelDiameter>
@@ -22,12 +23,19 @@
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
+      <odometrySource>world</odometrySource>
       <robotBaseFrame>base_footprint</robotBaseFrame>
-      <publishWheelTF>true</publishWheelTF>
+      <!--publishWheelTF>true</publishWheelTF--> <!--yuanye note: rviz will confuse with the parentlink-->
+      <publishTf>true</publishTf>
       <publishWheelJointState>true</publishWheelJointState> 
     </plugin>
   </gazebo>
 
+
+  <gazebo reference="base_footprint">
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+  </gazebo>
   <gazebo reference="base_link">
     <mu1>0.1</mu1>
     <mu2>0.1</mu2>
@@ -39,6 +47,8 @@
   <gazebo reference="tail_short">
     <mu1>0.3</mu1>
     <mu2>0.3</mu2>
+    <kp>100000000.0</kp>
+    <kd>1.0</kd>
   </gazebo>
   <gazebo reference="tail_long">
     <mu1>0.1</mu1>

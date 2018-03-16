@@ -6,8 +6,8 @@
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="world_name" default="worlds/empty.world"/>
-  <arg name="INITIAL_POSE_X" default="59" />
-  <arg name="INITIAL_POSE_Y" default="20" />
+  <arg name="INITIAL_POSE_X" default="40" />
+  <arg name="INITIAL_POSE_Y" default="15" />
   <arg name="INITIAL_POSE_Z" default="1" />
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->

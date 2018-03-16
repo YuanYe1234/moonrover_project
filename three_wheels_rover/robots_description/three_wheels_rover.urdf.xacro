@@ -211,17 +211,36 @@
   <transmission name="right_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="base_to_right">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
     <actuator name="right_wheel_motor">
     </actuator>
   </transmission>
+
   <transmission name="left_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="base_to_left">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
     <actuator name="left_wheel_motor">
+    </actuator>
+  </transmission>
+
+  <transmission name="tail_short_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="tail_main_to_short">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="tail_short_motor">
+    </actuator>
+  </transmission>
+
+  <transmission name="rear_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="tail_to_rear">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rear_wheel_motor">
     </actuator>
   </transmission>
 

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="model" default="$(find three_wheels_rover)/robots_description/three_wheels_rover.urdf.xacro"/>
+
+  <arg name="rvizconfig" default="$(find three_wheels_rover)/rviz/urdf.rviz" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+  <rosparam command="load"
+            file="$(find three_wheels_rover)/config/joints.yaml"
+            ns="rover_joint_state_controller" />
+
+  <node name="rover_controller_spawner" pkg="controller_manager" type="spawner"
+    args="rover_joint_state_controller
+          --shutdown-timeout 3"/>
+
+
+
+ <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  </include>
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param command="$(find xacro)/xacro '$(find three_wheels_rover)/robots_description/three_wheels_rover.urdf.xacro'" name="robot_description"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model robot1 -param robot_description -z 0.05"/>
+
+</launch>
