@@ -1,0 +1,31 @@
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find final_version_rover_control)/config/rover_final.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <!--<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/rover_final" args="joint_state_controller"/>-->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/rover_final" args="joint_state_controller
+					                                front_left_joint_position_controller
+                                          front_right_joint_position_controller
+                                          rear_joint_position_controller"/>
+  <!--node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/rover_final" args="joint_state_controller
+                      velocity_controllers 
+					            front_left_joint_velocity_controller
+                      front_right_joint_velocity_controller
+                      rear_joint_velocity_controller"/-->
+  <!--<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/rover_final" args="joint_state_controller
+					            front_left_joint_effort_controller
+                      front_right_joint_effort_controller
+                      rear_joint_effort_controller"/>-->
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+	respawn="false" output="screen">
+    <remap from="/joint_states" to="/rover_final/joint_states" />
+  </node>
+
+</launch>

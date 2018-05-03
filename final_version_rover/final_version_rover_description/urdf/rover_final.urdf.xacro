@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<robot name="rover_final" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="mesh_path" value="$(find final_version_rover_description)/meshes" />
+  <xacro:include filename="$(find final_version_rover_description)/urdf/rover_final.gazebo" />
+  <xacro:include filename="$(find final_version_rover_description)/urdf/materials.xacro" />
+
+  <link name="base_link">
+   <collision>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+       <mesh filename="file://${mesh_path}/base_link.STL"/>
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+       <mesh filename="file://${mesh_path}/base_link.STL"/>
+     </geometry>
+   </visual>
+    <inertial>
+      <origin xyz="0 -0.1 0" rpy="0 0 0"/>
+      <mass value="20"/>
+      <inertia ixx="0.401" ixy="-0.04" ixz="0.08" 
+               iyy="0.748" iyz="-0.110" 
+               izz="0.866"/>
+    </inertial>  
+  </link>  
+
+  <link name="front_left_wheel">
+   <collision>
+     <!--<origin xyz="0 0 0" rpy="0 ${PI/2} 0"/>-->
+     <origin xyz="-0.074 0 0" rpy="0 ${PI/2} 0"/>
+     <geometry>
+       <cylinder radius="0.1465" length="0.144"/>
+       <!--<mesh filename="file://${mesh_path}/front_wheel.STL"/>-->
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="0 ${PI/2} 0"/>
+     <geometry>
+       <mesh filename="file://${mesh_path}/front_wheel.STL"/>
+     </geometry>
+   </visual>  
+   <inertial>
+     <origin xyz="-0.092431 0 0" rpy="0 ${PI/2} 0"/>
+     <mass value="2.340"/>
+     <inertia ixx="0.02687045" ixy="0.0" ixz="0.0" 
+              iyy="0.03838138" iyz="0.0" 
+              izz="0.03838140"/>
+   </inertial>
+  </link>
+
+  <joint name="front_left_joint" type="continuous">
+    <axis xyz="1 0 0"/>
+    <limit effort="10000" velocity="10000"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+    <dynamics damping="0.7"/>
+    <origin xyz="-0.175 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="front_left_wheel"/>  
+  </joint>  
+
+  <link name="front_right_wheel">
+   <collision>
+     <!--<origin xyz="0 0 0" rpy="0 -${PI/2} 0"/>-->
+     <origin xyz="0.074 0 0" rpy="0 -${PI/2} 0"/>
+     <geometry>
+       <cylinder radius="0.1465" length="0.144"/>
+       <!--<mesh filename="file://${mesh_path}/front_wheel.STL"/>-->
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="0 -${PI/2} 0"/>
+     <geometry>
+       <mesh filename="file://${mesh_path}/front_wheel.STL"/>
+     </geometry>
+   </visual>  
+   <inertial>
+     <origin xyz="0.092431 0 0" rpy="0 ${PI/2} 0"/>
+     <mass value="2.340"/>
+     <inertia ixx="0.02687045" ixy="0.0" ixz="0.0" 
+              iyy="0.03838138" iyz="0.0" 
+              izz="0.03838140"/>
+   </inertial>
+  </link>
+
+  <joint name="front_right_joint" type="continuous">
+    <axis xyz="1 0 0"/>
+    <limit effort="10000" velocity="10000"/>
+    <joint_properties damping="0.5" friction="0.5"/>
+    <dynamics damping="0.7"/>
+    <origin xyz="0.175 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="front_right_wheel"/>  
+  </joint> 
+
+  <link name="tail_link">
+   <collision>
+     <origin xyz="0 0 0" rpy="0 0 ${PI/2}"/>
+     <geometry>
+       <mesh filename="file://${mesh_path}/tail_link.STL"/>
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="0 0 ${PI/2}"/>
+     <geometry>
+       <mesh filename="file://${mesh_path}/tail_link.STL"/>
+     </geometry>
+   </visual>  
+   <inertial>
+     <origin xyz="0.0 -0.03979157 -0.17494464" rpy="0 0 ${PI/2}"/>
+     <mass value="1.55"/>
+     <inertia ixx="0.01219491" ixy="0.00128996" ixz="0.00206055" 
+              iyy="0.00128996" iyz="-0.00380082" 
+              izz="0.00402196"/>
+   </inertial>
+  </link>  
+
+  <joint name="base_to_tail" type="revolute">
+    <parent link="base_link"/>
+    <child link="tail_link"/>
+    <axis xyz="0 0 1"/>
+    <joint_properties damping="0.5" friction="0.5"/>
+    <dynamics damping="0.7"/>
+    <origin xyz="0 -0.3 0.135"/>
+    <limit lower="-0.01" upper="0.01" effort="100" velocity="100"/>
+  </joint>
+
+  <link name="rear_wheel">
+   <collision>
+     <origin xyz="0 0 0" rpy="0 ${PI/2} 0"/>
+     <!--<origin xyz="0 0 0" rpy="0 0 ${PI}"/>-->
+     <geometry>
+       <cylinder radius="0.125" length="0.1"/>
+       <!--<mesh filename="file://${mesh_path}/rear_wheel.STL"/>-->
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="0 0 ${PI}"/>
+     <geometry>
+       <mesh filename="file://${mesh_path}/rear_wheel.STL"/>
+     </geometry>
+   </visual>  
+   <inertial>
+     <origin xyz="0 0 0" rpy="0 ${PI/2} 0"/>
+     <mass value="1.55"/>
+     <inertia ixx="0.01591791" ixy="0.0" ixz="0.0" 
+              iyy="0.01027374" iyz="0.0" 
+              izz="0.01027374"/>
+   </inertial>
+  </link>
+
+  <joint name="rear_joint" type="continuous">
+    <axis xyz="1 0 0"/>
+    <limit effort="10000" velocity="10000"/>
+    <joint_properties damping="0.5" friction="0.5"/>
+    <dynamics damping="0.7"/>
+    <origin xyz="0 -0.053 -0.16" rpy="0 0 0"/>
+    <parent link="tail_link"/>
+    <child link="rear_wheel"/>  
+  </joint>
+
+  <transmission name="tran_front_right">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_right_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_front_right">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_front_left_joint">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_left_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_front_left_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_rear_joint">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_rear">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_base_to_tail">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="base_to_tail">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_base_to_tail">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+</robot>
