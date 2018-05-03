@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+
+<robot name="rover_control_test" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="base_mass" value="10" /> <!-- arbitrary value for mass -->
+  <xacro:property name="base_width" value="2" /> 
+  <xacro:property name="height" value="0.4" /> 
+  <xacro:property name="longth" value="3" /> 
+  <xacro:property name="wheel_diameter" value="1" /> 
+  <xacro:property name="wheel_width" value="0.5" />
+  <xacro:property name="wheel_mass" value="2" />
+  <xacro:include filename="$(find rover_control_test_description)/urdf/rover_control_test.gazebo" />
+  <xacro:include filename="$(find rover_control_test_description)/urdf/materials.xacro" />
+
+  <link name="base_link">
+   <collision>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+       <box size="${longth} ${base_width} ${height}"/>
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+       <box size="${longth} ${base_width} ${height}"/>
+     </geometry>
+   </visual>  
+   <inertial>
+     <origin xyz="0 0 ${height/2}" rpy="0 0 0"/> 
+     <mass value="${base_mass}"/>
+     <inertia
+	        ixx="${base_mass / 12.0 * (longth*longth + height*height)}" ixy="0.0" ixz="0.0"
+	        iyy="${base_mass / 12.0 * (height*height + base_width*base_width)}" iyz="0.0"
+	        izz="${base_mass / 12.0 * (longth*longth + base_width*base_width)}"/>
+   </inertial>
+  </link>
+
+  <link name="front_left_wheel">
+   <collision>
+     <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+     <geometry>
+       <cylinder radius="${wheel_diameter/2}" length="${wheel_width}"/>
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+     <geometry>
+       <cylinder radius="${wheel_diameter/2}" length="${wheel_width}"/>
+     </geometry>
+   </visual>  
+   <inertial>
+     <mass value="${base_mass}"/>
+     <inertia 
+         ixx="${(1.0/12)*wheel_mass*(3*wheel_diameter/2*wheel_diameter/2+wheel_width*wheel_width)}" ixy="0.0" ixz="0.0" 
+         iyy="${(1.0/12)*wheel_mass*(3*wheel_diameter/2*wheel_diameter/2+wheel_width*wheel_width)}" iyz="0.0" 
+         izz="${(1.0/12)*wheel_mass*(wheel_diameter/2*wheel_diameter/2)}" />
+   </inertial>
+  </link>
+
+  <joint name="front_left_joint" type="continuous">
+    <axis xyz="0 1 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+    <dynamics damping="0.7"/>
+    <origin xyz="-1 -1.25 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="front_left_wheel"/>  
+  </joint>  
+
+  <link name="front_right_wheel">
+   <collision>
+     <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+     <geometry>
+       <cylinder radius="${wheel_diameter/2}" length="${wheel_width}"/>
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+     <geometry>
+       <cylinder radius="${wheel_diameter/2}" length="${wheel_width}"/>
+     </geometry>
+   </visual>  
+   <inertial>
+     <mass value="${base_mass}"/>
+     <inertia 
+         ixx="${(1.0/12)*wheel_mass*(3*wheel_diameter/2*wheel_diameter/2+wheel_width*wheel_width)}" ixy="0.0" ixz="0.0" 
+         iyy="${(1.0/12)*wheel_mass*(3*wheel_diameter/2*wheel_diameter/2+wheel_width*wheel_width)}" iyz="0.0" 
+         izz="${(1.0/12)*wheel_mass*(wheel_diameter/2*wheel_diameter/2)}" />
+   </inertial>
+  </link>
+
+  <joint name="front_right_joint" type="continuous">
+    <axis xyz="0 1 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+    <dynamics damping="0.7"/>
+    <origin xyz="-1 1.25 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="front_right_wheel"/>  
+  </joint> 
+
+  <link name="rear_left_wheel">
+   <collision>
+     <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+     <geometry>
+       <cylinder radius="${wheel_diameter/2}" length="${wheel_width}"/>
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+     <geometry>
+       <cylinder radius="${wheel_diameter/2}" length="${wheel_width}"/>
+     </geometry>
+   </visual>  
+   <inertial>
+     <mass value="${base_mass}"/>
+     <inertia 
+         ixx="${(1.0/12)*wheel_mass*(3*wheel_diameter/2*wheel_diameter/2+wheel_width*wheel_width)}" ixy="0.0" ixz="0.0" 
+         iyy="${(1.0/12)*wheel_mass*(3*wheel_diameter/2*wheel_diameter/2+wheel_width*wheel_width)}" iyz="0.0" 
+         izz="${(1.0/12)*wheel_mass*(wheel_diameter/2*wheel_diameter/2)}" />
+   </inertial>
+  </link>
+
+  <joint name="rear_left_joint" type="continuous">
+    <axis xyz="0 1 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+    <dynamics damping="0.7"/>
+    <origin xyz="1 -1.25 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="rear_left_wheel"/>  
+  </joint>
+
+  <link name="rear_right_wheel">
+   <collision>
+     <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+     <geometry>
+       <cylinder radius="${wheel_diameter/2}" length="${wheel_width}"/>
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+     <geometry>
+       <cylinder radius="${wheel_diameter/2}" length="${wheel_width}"/>
+     </geometry>
+   </visual>  
+   <inertial>
+     <mass value="${base_mass}"/>
+     <inertia 
+         ixx="${(1.0/12)*wheel_mass*(3*wheel_diameter/2*wheel_diameter/2+wheel_width*wheel_width)}" ixy="0.0" ixz="0.0" 
+         iyy="${(1.0/12)*wheel_mass*(3*wheel_diameter/2*wheel_diameter/2+wheel_width*wheel_width)}" iyz="0.0" 
+         izz="${(1.0/12)*wheel_mass*(wheel_diameter/2*wheel_diameter/2)}" />
+   </inertial>
+  </link>
+
+  <joint name="rear_right_joint" type="continuous">
+    <axis xyz="0 1 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+    <dynamics damping="0.7"/>
+    <origin xyz="1 1.25 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="rear_right_wheel"/>  
+  </joint>
+
+  <transmission name="tran_front_left_joint">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_left_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_front_left_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_front_right">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_right_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_front_right">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_rear_left_joint">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_left_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_rear_left_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_rear_right">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_right_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_rear_right">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+</robot>
