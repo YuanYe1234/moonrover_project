@@ -1,0 +1,61 @@
+rover_final:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+  # velocity_controllers:
+  #   type: velocity_controllers/JointVelocityController 
+  #   publish_rate: 50
+ # Position Controllers ---------------------------------------
+  front_left_joint_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: front_left_joint
+    pid: {p: 100, i: 0.01, d: 10.0}
+  front_right_joint_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: front_right_joint
+    pid: {p: 100, i: 0.01, d: 10.0}
+  rear_joint_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rear_joint
+    pid: {p: 100, i: 0.01, d: 10.0}
+  base_to_tail_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: base_to_tail
+    pid: {p: 100, i: 0.01, d: 10.0}
+
+ # Velocity Controllers ---------------------------------------
+  # front_right_joint_position_controller:
+  #   type: effort_controllers/JointVelocityController
+  #   joint: front_right_joint
+  #   pid: {p: 100.0, i: 0.01, d: 10.0}
+  # front_left_joint_position_controller:
+  #   type: effort_controllers/JointVelocityController
+  #   joint: front_left_joint
+  #   pid: {p: 100.0, i: 0.01, d: 10.0}
+  # rear_joint_position_controller:
+  #   type: effort_controllers/JointVelocityController
+  #   joint: rear_joint
+  #   pid: {p: 100.0, i: 0.01, d: 10.0}
+  # base_to_tail_position_controller:
+  #   type: effort_controllers/JointVelocityController
+  #   joint: base_to_tail
+  #   pid: {p: 100.0, i: 0.01, d: 10.0}
+
+
+  # front_left_joint_position_controller:
+  #   type: effort_controllers/JointEffortController
+  #   joint: front_left_joint
+  #   pid: {p: 100.0, i: 0.01, d: 10.0}
+  # front_right_joint_position_controller:
+  #   type: effort_controllers/JointEffortController
+  #   joint: front_right_joint
+  #   pid: {p: 100.0, i: 0.01, d: 10.0}
+  # rear_joint_position_controller:
+  #   type: effort_controllers/JointEffortController
+  #   joint: rear_joint
+  #   pid: {p: 100.0, i: 0.01, d: 10.0}
+  # base_to_tail_position_controller:
+  #   type: effort_controllers/JointEffortController
+  #   joint: base_to_tail
+  #   pid: {p: 100.0, i: 0.01, d: 10.0}
